@@ -1,5 +1,8 @@
 package com.example.movies.utilities;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 
 import java.io.InputStream;
@@ -39,23 +42,31 @@ public class NetworkUtils {
         return webAddress;
     }
 
-    public static String getResponseFromHttpUrl(URL url) throws IOException {
-        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+    public static String getResponseFromHttpUrl(URL url, Context context) throws IOException {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(
+                Context.CONNECTIVITY_SERVICE
+        );
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
 
-        try {
-            InputStream in = urlConnection.getInputStream();
+        if (networkInfo != null && networkInfo.isConnected()) {
+            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            try {
+                InputStream in = urlConnection.getInputStream();
 
-            Scanner scanner = new Scanner(in);
-            scanner.useDelimiter("\\A");
+                Scanner scanner = new Scanner(in);
+                scanner.useDelimiter("\\A");
 
-            if (scanner.hasNext()) {
-                return scanner.next();
-            } else {
-                return null;
+                if (scanner.hasNext()) {
+                    return scanner.next();
+                } else {
+                    return null;
+                }
+
+            } finally {
+                urlConnection.disconnect();
             }
-
-        } finally {
-            urlConnection.disconnect();
+        } else {
+            return null;
         }
     }
 

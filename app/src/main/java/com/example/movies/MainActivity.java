@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,6 +34,13 @@ public class MainActivity extends AppCompatActivity implements MoviesListAdapter
     private MoviesListAdapter mAdapter;
     private int currentMoviesFilter;
 
+    private int calculateGridSpanCount() {
+        DisplayMetrics displayMetrics = this.getResources().getDisplayMetrics();
+        float displayWidth = displayMetrics.widthPixels / displayMetrics.density;
+        int numberOfColumns = (int) (displayWidth / 150);
+        return Math.max(numberOfColumns, 2);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements MoviesListAdapter
         // set layout manager
         GridLayoutManager layoutManager = new GridLayoutManager(
                 this,
-                2,
+                calculateGridSpanCount(),
                 GridLayoutManager.VERTICAL,
                 false
         );
@@ -199,10 +207,13 @@ public class MainActivity extends AppCompatActivity implements MoviesListAdapter
 
             try {
                 // fetch data from url
-                String response = NetworkUtils.getResponseFromHttpUrl(moviesUrl);
+                String response = NetworkUtils.getResponseFromHttpUrl(
+                        moviesUrl,
+                        MainActivity.this
+                );
 
                 // decode response string to results JSONArray
-                return parseMoviesListResponse(response);
+                return response != null ? parseMoviesListResponse(response) : null;
             } catch (IOException e) {
                 e.printStackTrace();
                 return null;
