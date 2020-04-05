@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="top_rated_movies">1</integer>
+    <integer name="popular_movies">2</integer>
+    <string name="top_rated_movies_url_path">top_rated</string>
+    <string name="popular_movies_url_path">popular</string>
+    <string name="movies_list_base_url">https://api.themoviedb.org/3/movie/</string>
+    <string name="the_movie_db_api_key"></string>
+</resources>

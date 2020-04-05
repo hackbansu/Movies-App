@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="movies_list_error_text_size">22sp</dimen>
+    <dimen name="movies_list_error_padding">22sp</dimen>
+    <dimen name="movies_list_heading_padding">12sp</dimen>
+    <dimen name="movies_list_thumbnail_margin_top">10dp</dimen>
+    <dimen name="movie_detail_poster_margin_top">10dp</dimen>
+    <dimen name="movie_detail_poster_width">200dp</dimen>
+    <dimen name="movies_list_movie_title">15sp</dimen>
+    <dimen name="movies_list_movie_title_margin_top">10sp</dimen>
+    <dimen name="movie_detail_title_size">20sp</dimen>
+    <dimen name="movie_detail_layout_padding">16dp</dimen>
+    <dimen name="movie_detail_heading_margin_top">20dp</dimen>
+    <dimen name="movie_detail_heading_font_size">35sp</dimen>
+    <dimen name="movie_detail_content_margin_top">10dp</dimen>
+    <dimen name="movies_list_heading_text_size">25sp</dimen>
+</resources>
